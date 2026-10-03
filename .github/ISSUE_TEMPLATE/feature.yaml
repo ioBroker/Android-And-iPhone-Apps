@@ -1,0 +1,48 @@
+name: 🌟 Feature request
+description: Suggest an idea for the ioBroker Android or iPhone app
+title: "[FEATURE] <title>"
+labels: [enhancement]
+body:
+  - type: checkboxes
+    attributes:
+      label: Is there an existing feature request for this?
+      description: Please search to see if a request already exists for the feature you are proposing.
+      options:
+        - label: I have searched the existing issues
+          required: true
+
+  - type: textarea
+    attributes:
+      label: Feature description
+      description: A concise description of what the new feature should do.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: What problem does it solve?
+      description: What are you trying to achieve that is not possible (or awkward) today?
+    validations:
+      required: false
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Which platform is this for?
+      multiple: true
+      options:
+        - Android
+        - iOS / iPadOS
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Anything else?
+      description: |
+        Mockups, links, references — anything that gives more context.
+
+        ⚠️ Please redact IP addresses, user names, passwords and ioBroker.pro credentials
+        from screenshots.
+    validations:
+      required: false

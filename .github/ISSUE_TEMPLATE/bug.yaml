@@ -1,0 +1,140 @@
+name: 🐞 Bug
+description: Report a problem with the ioBroker Android or iPhone app
+title: "[BUG] <title>"
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this!
+
+        This tracker is for the **apps** (`ioBroker Visu` for Android and iOS). If the same
+        problem also happens when you open your visualization in a normal mobile browser,
+        it belongs in the repository of `vis-2`, `vis` or the adapter in question.
+
+  - type: checkboxes
+    attributes:
+      label: Is there an existing issue for this?
+      description: Please search to see if an issue already exists for the bug you encountered.
+      options:
+        - label: I have searched the existing issues
+          required: true
+
+  - type: textarea
+    attributes:
+      label: Current behaviour
+      description: A concise description of what you are experiencing.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Expected behaviour
+      description: A concise description of what you expected to happen.
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. In this environment...
+        2. With this configuration...
+        3. Do '...'
+        4. See error...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Which platform are you using?
+      multiple: false
+      options:
+        - iOS / iPadOS
+        - Android
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: OS version
+      placeholder: "iOS 18.5 / Android 15"
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Device
+      placeholder: "iPhone 14 Pro / Pixel 8 / Galaxy Tab S9"
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: App version
+      description: Shown at the bottom of the settings screen (three-finger tap on the visualization).
+      placeholder: "2.2.6"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: app_type
+    attributes:
+      label: Which visualization are you using?
+      multiple: false
+      options:
+        - vis-2
+        - vis
+        - lovelace
+        - material
+        - jarvis
+        - iQontrol
+        - habpanel
+        - devices
+        - other / not applicable
+    validations:
+      required: true
+
+  - type: dropdown
+    id: connection
+    attributes:
+      label: How is the app connected?
+      multiple: false
+      options:
+        - Local (home network)
+        - ioBroker.pro cloud
+        - Custom cloud
+        - Both local and cloud, switching by Wi-Fi SSID
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part of the app is affected?
+      multiple: false
+      options:
+        - Visualization / WebView
+        - Settings
+        - Home-screen widget
+        - Push notification
+        - Device telemetry (battery, location, brightness)
+        - Matter
+        - Geofence
+        - Other
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: Anything else?
+      description: |
+        Screenshots, screen recordings, logs, links — anything that gives more context.
+
+        ⚠️ Please redact IP addresses, user names, passwords and ioBroker.pro credentials.
+
+        For a widget problem, please also add the state ID and its `common` definition
+        (type, role, min, max, unit, write, states).
+    validations:
+      required: false

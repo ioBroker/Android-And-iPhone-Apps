@@ -1,0 +1,17 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 ioBroker Forum
+    url: https://forum.iobroker.net/
+    about: Questions about usage, setup help and community support — please ask here first.
+  - name: 📖 App documentation
+    url: https://github.com/ioBroker/Android-And-iPhone-Apps#documentation
+    about: Feature reference, settings and the home-screen widget guide.
+  - name: 🖼️ Problem with the visualization itself (vis-2)
+    url: https://github.com/ioBroker/ioBroker.vis-2/issues
+    about: If a view or vis widget also looks wrong in the desktop browser, report it there.
+  - name: 🌐 Problem with the web adapter
+    url: https://github.com/ioBroker/ioBroker.web/issues
+    about: Missing /state/ or /objects endpoint, login or permission problems of the web instance.
+  - name: ☁️ ioBroker.pro account or billing
+    url: https://iobroker.pro
+    about: Cloud subscription, login and billing questions.
