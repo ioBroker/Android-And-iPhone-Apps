@@ -26,19 +26,28 @@
 
 ## Screenshots
 
-| Deine Visualisierung | Verbindungseinstellungen |
-|---|---|
-| <img src="images/ios/vis-dashboard-iphone.png" width="250" alt="vis-Dashboard auf einem iPhone" /> | <img src="images/ios/settings-connection-iphone.png" width="250" alt="Verbindungseinstellungen auf einem iPhone" /> |
+Die Einstellungen sind in fünf Tabs gegliedert, darüber steht die Projektauswahl:
 
-Auf dem iPad nutzen dieselben Ansichten die volle Breite:
-
-| Dashboard | Navigationsmenü | Vollständige Einstellungsliste |
+| Lokal | Pro Cloud | Anwendung |
 |---|---|---|
-| <img src="images/ios/vis-dashboard-ipad.png" width="260" alt="Dashboard auf einem iPad" /> | <img src="images/ios/vis-menu-ipad.png" width="260" alt="Navigationsmenü auf einem iPad" /> | <img src="images/ios/settings-full-ipad.png" width="260" alt="Vollständige Einstellungsliste auf einem iPad" /> |
+| <img src="images/ios/iphone-01-local.png" width="220" alt="Tab Lokal auf einem iPhone: QR-Scan, Host, Benutzername, Passwort" /> | <img src="images/ios/iphone-02-procloud.png" width="220" alt="Tab Pro Cloud auf einem iPhone: Typ, E-Mail, Passwort, WLAN-SSIDs" /> | <img src="images/ios/iphone-03-application.png" width="220" alt="Tab Anwendung auf einem iPhone: Visualisierung, vis-Projekt, Instanz-ID, URL-Zusatz" /> |
 
-*Das sind die aktuellen App-Store-Screenshots. Die App wird laufend weiterentwickelt, der
-Einstellungsbildschirm der neuesten Version kann daher anders gegliedert sein als hier zu
-sehen — die Referenz unten beschreibt die aktuelle Struktur.*
+| Sonstige | Matter |
+|---|---|
+| <img src="images/ios/iphone-04-others.png" width="220" alt="Tab Sonstige auf einem iPhone: Design, Sprache, Gerätename, biometrischer Schutz" /> | <img src="images/ios/iphone-05-matter.png" width="220" alt="Tab Matter auf einem iPhone: Matter-Instanz, Gerät per QR oder Kopplungscode hinzufügen" /> |
+
+Auf dem iPad nutzen dieselben Tabs die volle Breite:
+
+| Lokal | Pro Cloud | Anwendung |
+|---|---|---|
+| <img src="images/ios/ipad-01-local.png" width="250" alt="Tab Lokal auf einem iPad" /> | <img src="images/ios/ipad-02-procloud.png" width="250" alt="Tab Pro Cloud auf einem iPad" /> | <img src="images/ios/ipad-03-application.png" width="250" alt="Tab Anwendung auf einem iPad" /> |
+
+| Sonstige | Matter |
+|---|---|
+| <img src="images/ios/ipad-04-others.png" width="340" alt="Tab Sonstige auf einem iPad mit den Karten Allgemein, Sicherheit und Anzeige" /> | <img src="images/ios/ipad-05-matter.png" width="340" alt="Tab Matter auf einem iPad" /> |
+
+*Offizielle App-Store-Screenshots. Die App wird laufend weiterentwickelt, Einzelheiten können
+in einer neueren Version abweichen.*
 
 ---
 
@@ -150,7 +159,8 @@ Einstellungen verlangen.
 ## Einstellungsreferenz
 
 Die Einstellungen öffnen sich mit einem **Drei-Finger-Tipp** auf die Visualisierung und sind
-in fünf Tabs gegliedert.
+in fünf Tabs gegliedert: **Lokal**, **Pro Cloud**, **Anwendung**, **Sonstige** und
+**Matter**. Die Projektauswahl steht über den Tabs.
 
 ### Lokal
 
@@ -178,7 +188,23 @@ in fünf Tabs gegliedert.
 | URL-Postfix | Wird an die URL angehängt, z. B. `#meineStartView` |
 | Instanz-ID | Kennzeichnet dieses Gerät für `vis.0.control` (Views umschalten, aktive View erkennen) |
 
-### Sonstiges
+### Sonstige
+
+Gegliedert in die Karten **Allgemein**, **Sicherheit**, **Anzeige** und **Verhalten**:
+
+| Einstellung | Karte | Bedeutung |
+|---|---|---|
+| Design | Allgemein | System, hell oder dunkel |
+| Sprache | Allgemein | App-Sprache: System, Englisch, Deutsch, Russisch |
+| Gerätename | Allgemein | Name für die Datenpunkte dieses Geräts |
+| App-Start schützen | Sicherheit | Beim Start nach Face ID oder Touch ID fragen |
+| Einstellungen schützen | Sicherheit | Vor dem Öffnen dieser Einstellungen erneut fragen |
+| Statusleiste | Anzeige | Anzeigen, ausblenden oder transparent |
+| Helle Statusleisten-Schrift | Anzeige | Helle Schrift für dunkle Statusleisten |
+| Statusleisten-Farbe | Anzeige | Freie Farbe über den Farbwähler |
+| Ausrichtung | Anzeige | Automatisch oder auf Hoch- bzw. Querformat festgelegt |
+
+Die Karte **Verhalten** enthält den Rest — wie die Ansicht auf dich reagiert:
 
 | Einstellung | Bedeutung |
 |---|---|
@@ -187,19 +213,15 @@ in fünf Tabs gegliedert.
 | Automatischer Zoom | Setzt `width=device-width`, die Seite skaliert sich selbst |
 | Vollbild erzwingen | Setzt `viewport-fit=cover` |
 | Neuladen bei Ausrichtungswechsel | Hilft bei Views, die sich nicht sauber neu anordnen |
-| Ausrichtung | Auf Hoch- oder Querformat festlegen |
-| Statusleiste | Sichtbar, ausgeblendet oder transparent, mit freier Farbe und hellem Text |
+| Pull-to-Refresh | Reload-Geste aktivieren oder abschalten |
 | Display nicht abschalten | Verhindert, dass der Bildschirm ausgeht |
 | Dimmen nach Sekunden / Dimmen auf | Nach Inaktivität dimmen, beim nächsten Tippen zurück (`0` = aus) |
 | Nach Sekunden zur Startseite | Nach Inaktivität zur Start-View zurück (`0` = aus) |
 | Neuladen, wenn die App aktiv wird | Harter Reload beim Zurückkehren aus dem Hintergrund (unter iOS standardmäßig an) |
-| Telemetrie-Ziel | `cloud`-Adapter oder `vis.0` |
-| Akku / Standort / Helligkeit / Gerätename | Welche Werte gemeldet werden |
-| Dauerhaft im Hintergrund melden | Hält das Melden über Standort-Updates am Leben; benötigt die Berechtigung „Immer“ |
-| Gerätename | Name für die Datenpunkte dieses Geräts |
 | Pro-Logo anzeigen | Anzeige in der Ecke, solange die Cloud-Verbindung genutzt wird |
-| App-Start schützen / Einstellungen schützen | Face-ID-/Touch-ID-Sperre |
-| Sprache / Dunkles Design | App-Sprache (EN/DE/RU) und Erscheinungsbild |
+| Telemetrie-Ziel | `cloud`-Adapter oder `vis.0` |
+| Akku / Standort / Helligkeit | Welche Gerätewerte gemeldet werden |
+| Dauerhaft im Hintergrund melden | Hält das Melden über Standort-Updates am Leben; benötigt die Berechtigung „Immer“ |
 
 ### Matter
 

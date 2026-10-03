@@ -144,7 +144,7 @@ independently of each other.
 ## Settings reference
 
 The settings screen opens with a **three-finger tap** on the visualization, and is organised
-in five tabs.
+in five tabs: **Local**, **Cloud**, **App**, **Others** and **Matter**.
 
 ### Local
 
@@ -155,7 +155,7 @@ in five tabs.
 | QR scanner | Reads an `iotConfig` code and fills in the fields |
 | Accept self-signed certificates | For local HTTPS instances with their own certificate |
 
-### Pro Cloud
+### Cloud
 
 | Setting | Meaning |
 |---|---|
@@ -165,7 +165,7 @@ in five tabs.
 | Wi-Fi SSIDs | Comma-separated home networks; inside them the local URL is used |
 | VPN detection / auto-confirm | Use the local URL while a VPN is active, asking or silently |
 
-### Application
+### App
 
 | Setting | Meaning |
 |---|---|

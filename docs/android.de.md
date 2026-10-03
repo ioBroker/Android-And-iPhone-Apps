@@ -110,7 +110,7 @@ Online-Anzeige. Zwei Ziele sind wählbar: der `cloud`-Adapter (Datenpunkte unter
 Die Meldungen laufen auch weiter, wenn die App nicht im Vordergrund ist: ein
 WorkManager-Auftrag alle 15 Minuten, ein Alarm, der auch im Doze-Modus auslöst, und —
 optional, für Geräte, deren Hersteller Hintergrundarbeit vollständig unterbindet — ein
-Vordergrunddienst. Der Tab *Sonstiges* bietet eine Abkürzung zu den
+Vordergrunddienst. Der Tab *Andere* bietet eine Abkürzung zu den
 Akkuoptimierungs-Einstellungen an, solange das System die App noch einschränkt.
 
 ### Matter
@@ -148,7 +148,7 @@ für das Öffnen der Einstellungen verlangen.
 ## Einstellungsreferenz
 
 Die Einstellungen öffnen sich mit einem **Drei-Finger-Tipp** auf die Visualisierung und sind
-in fünf Tabs gegliedert.
+in fünf Tabs gegliedert: **Lokal**, **Cloud**, **App**, **Andere** und **Matter**.
 
 ### Lokal
 
@@ -159,7 +159,7 @@ in fünf Tabs gegliedert.
 | QR-Scanner | Liest einen `iotConfig`-Code und füllt die Felder aus |
 | Selbstsignierte Zertifikate akzeptieren | Für lokale HTTPS-Instanzen mit eigenem Zertifikat |
 
-### Pro-Cloud
+### Cloud
 
 | Einstellung | Bedeutung |
 |---|---|
@@ -169,7 +169,7 @@ in fünf Tabs gegliedert.
 | WLAN-SSIDs | Kommagetrennte Heimnetze; darin wird die lokale URL genutzt |
 | VPN-Erkennung / automatisch bestätigen | Lokale URL verwenden, solange ein VPN aktiv ist — mit oder ohne Rückfrage |
 
-### Anwendung
+### App
 
 | Einstellung | Bedeutung |
 |---|---|
@@ -178,7 +178,7 @@ in fünf Tabs gegliedert.
 | URL-Postfix | Wird an die URL angehängt, z. B. `#meineStartView` |
 | Instanz-ID | Kennzeichnet dieses Gerät für `vis.0.control` (Views umschalten, aktive View erkennen) |
 
-### Sonstiges
+### Andere
 
 | Einstellung | Bedeutung |
 |---|---|

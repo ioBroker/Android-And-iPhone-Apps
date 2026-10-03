@@ -124,7 +124,7 @@ exists, is almost always a permission problem rather than a bug.
 Instant updates arrive over the ioBroker cloud. For them you need:
 
 - an **ioBroker.pro** account with a valid subscription,
-- cloud type **Pro** in the app's *Pro Cloud* tab, with user name and password entered.
+- cloud type **Pro** in the app's cloud tab, with user name and password entered.
 
 The app verifies the account and then subscribes to a notification topic derived from your
 Pro user name. Without a valid Pro login there is no push — the widgets still work, but they
@@ -136,7 +136,7 @@ auto-refresh interval on the tiles that matter.
 Configure at least the `default` project so that the connection works:
 
 - **Local** tab: host `IP:PORT` of the web instance, plus user name and password if required.
-- **Pro Cloud** tab: your ioBroker.pro credentials, if you want push and remote access.
+- **Cloud** tab (*Pro Cloud* on iOS): your ioBroker.pro credentials, if you want push and remote access.
 
 Test it by opening your visualization in the app once. If that works, the widgets have
 everything they need.

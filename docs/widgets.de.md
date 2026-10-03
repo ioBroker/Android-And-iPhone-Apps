@@ -132,7 +132,7 @@ Datenpunkt existiert, ist fast immer ein Rechteproblem und kein Fehler der App.
 Sofortige Aktualisierungen laufen über die ioBroker-Cloud. Dafür brauchst du:
 
 - ein **ioBroker.pro**-Konto mit gültigem Abonnement,
-- Cloud-Typ **Pro** im Tab *Pro-Cloud* der App, mit eingetragenem Benutzernamen und Passwort.
+- Cloud-Typ **Pro** im Cloud-Tab der App, mit eingetragenem Benutzernamen und Passwort.
 
 Die App prüft das Konto und abonniert danach ein Benachrichtigungs-Thema, das aus deinem
 Pro-Benutzernamen abgeleitet wird. Ohne gültigen Pro-Login gibt es keinen Push — die Widgets
@@ -145,7 +145,7 @@ den wichtigen Kacheln ein Aktualisierungsintervall ein.
 Richte mindestens das Projekt `default` so ein, dass die Verbindung funktioniert:
 
 - Tab **Lokal**: `IP:PORT` der web-Instanz, dazu Benutzername und Passwort, falls nötig.
-- Tab **Pro-Cloud**: deine ioBroker.pro-Zugangsdaten, wenn du Push und Fernzugriff willst.
+- Tab **Cloud** (unter iOS *Pro Cloud*): deine ioBroker.pro-Zugangsdaten, wenn du Push und Fernzugriff willst.
 
 Teste es, indem du deine Visualisierung einmal in der App öffnest. Klappt das, haben die
 Widgets alles, was sie brauchen.
@@ -161,7 +161,7 @@ Widgets alles, was sie brauchen.
 4. Kachel in der Größe ziehen — die Darstellung passt sich an.
 
 Kommt die 15-Minuten-Aktualisierung zu spät oder gar nicht, nimm die App von der
-Akkuoptimierung aus. Der Tab *Sonstiges* in den Einstellungen bietet eine Abkürzung zu dieser
+Akkuoptimierung aus. Der Tab *Andere* in den Einstellungen bietet eine Abkürzung zu dieser
 Systemeinstellung.
 
 **iOS / iPadOS**

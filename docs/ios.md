@@ -26,19 +26,28 @@
 
 ## Screenshots
 
-| Your visualization | Connection settings |
-|---|---|
-| <img src="images/ios/vis-dashboard-iphone.png" width="250" alt="vis dashboard on an iPhone" /> | <img src="images/ios/settings-connection-iphone.png" width="250" alt="Connection settings on an iPhone" /> |
+The settings are organised in five tabs, with the project selector above them:
 
-On the iPad the same views use the full width:
-
-| Dashboard | Navigation drawer | Full settings list |
+| Local | Pro Cloud | Application |
 |---|---|---|
-| <img src="images/ios/vis-dashboard-ipad.png" width="260" alt="Dashboard on an iPad" /> | <img src="images/ios/vis-menu-ipad.png" width="260" alt="Navigation drawer on an iPad" /> | <img src="images/ios/settings-full-ipad.png" width="260" alt="Complete settings list on an iPad" /> |
+| <img src="images/ios/iphone-01-local.png" width="220" alt="Local tab on an iPhone: QR scan, host, user name, password" /> | <img src="images/ios/iphone-02-procloud.png" width="220" alt="Pro Cloud tab on an iPhone: cloud type, e-mail, password, Wi-Fi SSIDs" /> | <img src="images/ios/iphone-03-application.png" width="220" alt="Application tab on an iPhone: visualization, vis project, instance ID, URL postfix" /> |
 
-*These are the current App Store screenshots. The app is developed continuously, so the
-settings screen in the latest release may be grouped differently than shown here — the
-reference below describes the current structure.*
+| Others | Matter |
+|---|---|
+| <img src="images/ios/iphone-04-others.png" width="220" alt="Others tab on an iPhone: theme, language, device name, biometric protection" /> | <img src="images/ios/iphone-05-matter.png" width="220" alt="Matter tab on an iPhone: matter instance, add device by QR or pairing code" /> |
+
+On the iPad the same tabs use the full width:
+
+| Local | Pro Cloud | Application |
+|---|---|---|
+| <img src="images/ios/ipad-01-local.png" width="250" alt="Local tab on an iPad" /> | <img src="images/ios/ipad-02-procloud.png" width="250" alt="Pro Cloud tab on an iPad" /> | <img src="images/ios/ipad-03-application.png" width="250" alt="Application tab on an iPad" /> |
+
+| Others | Matter |
+|---|---|
+| <img src="images/ios/ipad-04-others.png" width="340" alt="Others tab on an iPad, showing the General, Security and Display cards" /> | <img src="images/ios/ipad-05-matter.png" width="340" alt="Matter tab on an iPad" /> |
+
+*Official App Store screenshots. The app is developed continuously, so details may differ in
+a newer release.*
 
 ---
 
@@ -143,7 +152,8 @@ independently of each other.
 ## Settings reference
 
 The settings screen opens with a **three-finger tap** on the visualization, and is organised
-in five tabs.
+in five tabs: **Local**, **Pro Cloud**, **Application**, **Others** and **Matter**.
+The project selector sits above the tabs.
 
 ### Local
 
@@ -173,6 +183,22 @@ in five tabs.
 
 ### Others
 
+Grouped into the cards **General**, **Security**, **Display** and **Behaviour**:
+
+| Setting | Card | Meaning |
+|---|---|---|
+| Theme | General | System, light or dark |
+| Language | General | App language: system, English, German, Russian |
+| Device name | General | Name used for the states of this device |
+| Protect app start | Security | Ask for Face ID / Touch ID at launch |
+| Protect settings | Security | Ask again before this settings screen opens |
+| Status bar | Display | Shown, hidden or transparent |
+| Light status bar text | Display | Light text for dark status bar backgrounds |
+| Status bar colour | Display | Free colour via the colour picker |
+| Orientation | Display | Automatic, or locked to portrait or landscape |
+
+The **Behaviour** card holds the rest — how the view reacts to you:
+
 | Setting | Meaning |
 |---|---|
 | Allow zoom / Allow scrolling | Enable or block the gestures in the WebView |
@@ -180,19 +206,15 @@ in five tabs.
 | Automatic zoom | Sets `width=device-width`, so the page scales itself |
 | Force full screen | Sets `viewport-fit=cover` |
 | Reload on orientation change | Helps with views that do not re-layout cleanly |
-| Orientation | Lock to portrait or landscape |
-| Status bar | Shown, hidden or transparent, with a free colour and light text |
+| Pull to refresh | Enable or disable the reload gesture |
 | Keep display awake | Prevents the screen from turning off |
 | Dim after seconds / Dim to level | Dim after inactivity, restore on the next tap (`0` = off) |
 | Back to start page after seconds | Return to the start view after inactivity (`0` = off) |
 | Reload when the app becomes active | Hard reload when returning from the background (on by default on iOS) |
-| Telemetry target | `cloud` adapter or `vis.0` |
-| Battery / Location / Brightness / Device name | Which values are reported |
-| Report permanently in the background | Keeps reporting alive through location updates; needs the "Always" permission |
-| Device name | Name used for the states of this device |
 | Show Pro logo | Indicator in the corner while the cloud connection is in use |
-| Protect app start / Protect settings | Face ID / Touch ID lock |
-| Language / Dark mode | App language (EN/DE/RU) and theme |
+| Telemetry target | `cloud` adapter or `vis.0` |
+| Battery / Location / Brightness | Which device values are reported |
+| Report permanently in the background | Keeps reporting alive through location updates; needs the "Always" permission |
 
 ### Matter
 
