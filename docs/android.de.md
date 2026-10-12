@@ -54,28 +54,46 @@ Kiosk-Verhalten.
 
 ### Unterstützte Visualisierungen
 
-`vis-2` · `vis` · `lovelace` · `material` · `jarvis` · `iQontrol` · `habpanel` · `devices`
+`vis-2` · `devices` · `vis` · `lovelace` · `material` · `jarvis` · `iQontrol` · `habpanel` · `aura`
 
 Die Auswahl bestimmt lediglich, welche URL die App öffnet — alles andere, was deine
 web-Instanz ausliefert, lässt sich ebenfalls verwenden. Standardport ist **8082**, außer bei
 `lovelace`: dort **8091**.
 
+### Mehrere Visualisierungen in einem Projekt
+
+Ein Projekt kann mehr als eine Visualisierung anbieten — etwa `vis-2` für die Räume und
+`lovelace` für die Energieansicht. Bei mehr als einer erscheint über der Seite eine Leiste mit
+Tabs. Jeder Tab behält seine eigene Seite: Beim Zurückwechseln sind View, Scrollposition und
+Verbindung noch da, und geladen wird ein Tab erst, wenn er zum ersten Mal geöffnet wird.
+*Zurück* geht durch den Seitenverlauf, dann zum ersten Tab und erst danach aus der App; die
+Inaktivitäts-Rückkehr führt zum ersten Tab und seiner Startseite.
+
 ### Verbindung
 
 - **Lokal** — IP und Port der web-Instanz, z. B. `192.168.1.10:8082`. Ein reines `IP:PORT`
   wird automatisch vervollständigt, `https://` kann explizit angegeben werden. Benutzername
-  und Passwort führen optional einen automatischen Login durch.
+  und Passwort führen optional einen automatischen Login durch. Unter dem Feld steht die
+  Adresse, die die App tatsächlich öffnet — mit Schema, Port und Pfad.
 - **Pro-Cloud** — dein [ioBroker.pro](https://iobroker.pro)-Konto für den Zugriff von außen.
   Das Abonnement wird gegen die Cloud geprüft; auf Wunsch zeigt ein Pro-Logo in der Ecke an,
   dass gerade die Cloud-Verbindung genutzt wird.
-- **Eigene Cloud** — statt ioBroker.pro eine beliebige selbst betriebene URL.
+- **Eigene Cloud** — statt ioBroker.pro eine beliebige selbst betriebene URL. Die Plakette in
+  der Ecke zeigt dann `remote` statt `.pro`.
 - **WLAN-SSIDs** — kommagetrennte Liste deiner Heimnetze. Solange eines davon verbunden ist,
-  nutzt die App die lokale URL, sonst die Cloud.
+  nutzt die App die lokale URL, sonst die Cloud. Android verrät einer App den WLAN-Namen nur
+  mit Standortberechtigung *und* eingeschaltetem Standort; der Tab *Remote* sagt, was davon
+  fehlt. Solange der Name nicht lesbar ist, fragt die App die lokale Installation, ob sie
+  antwortet, statt in die Cloud zu wechseln.
 - **VPN-Erkennung** — ist ein VPN aktiv, kann die App die lokale URL vorschlagen oder still
   verwenden, weil die lokale Adresse durch den Tunnel wieder erreichbar ist.
 - **QR-Code-Einrichtung** — im Tab *Lokal* liest ein Scanner den von ioBroker erzeugten
   `iotConfig`-Code und füllt Port, IP, Cloud-Benutzer und Passwort in einem Schritt aus.
-- **Selbstsignierte Zertifikate** — je Projekt für lokale HTTPS-Instanzen erlaubbar.
+- **Selbstsignierte Zertifikate** — je Projekt (Tab *Andere*) für lokale HTTPS-Instanzen
+  erlaubbar. Die Ausnahme gilt für die Seite, den Login, den Verbindungstest und die Liste der
+  vis-Projekte gleichermaßen, nie aber für iobroker.pro. Ein abgelehntes Zertifikat wird
+  benannt — nicht vertrauenswürdig, für einen anderen Namen ausgestellt, abgelaufen oder noch
+  nicht gültig — statt einer weißen Seite oder „keine Verbindung“.
 - **Sitzungswiederherstellung** — eine abgelaufene Sitzung erzeugt keinen Fehler, sondern nur
   eine Weiterleitung auf eine Login-Seite. Die App erneuert das Sitzungs-Cookie vor Ablauf,
   erneuert es erneut beim Zurückkehren in den Vordergrund und erkennt eine Login-Seite an
@@ -113,6 +131,78 @@ optional, für Geräte, deren Hersteller Hintergrundarbeit vollständig unterbin
 Vordergrunddienst. Der Tab *Andere* bietet eine Abkürzung zu den
 Akkuoptimierungs-Einstellungen an, solange das System die App noch einschränkt.
 
+### Mikrofon, Kamera und Ton
+
+Eine Seite darf Mikrofon und Kamera nutzen — zum Beispiel ein Gegensprech- oder
+Türklingel-Widget. Die App fragt die Android-Berechtigung ab, wenn eine Seite sie zum ersten
+Mal braucht, nicht schon beim Start. Töne dürfen ohne vorheriges Tippen abspielen, damit ein
+Klingelton auch auf einem Display zu hören ist, das niemand berührt hat.
+
+> Die Android-WebView bietet Mikrofon und Kamera nur Seiten an, die über **HTTPS** geladen sind
+> (ioBroker.pro oder eine lokale Instanz mit Zertifikat). Über reines `http://<ip>` kann eine
+> Seite sie nicht nutzen; Töne abspielen geht in beiden Fällen.
+
+### Fernsteuerung (REST-Schnittstelle, kompatibel mit Fully Kiosk)
+
+Die App kann die REST-Schnittstelle von **Fully Kiosk Browser** beantworten, sodass ioBroker ein
+Wandtablet steuern kann: Display an- und ausschalten, Klingelton abspielen, Text sprechen,
+Helligkeit und Lautstärke setzen, eine Seite öffnen. Der Adapter
+[ioBroker.fullybrowser](https://github.com/arteck/ioBroker.fullybrowser) funktioniert damit
+unverändert.
+
+**Einrichten**
+
+1. *Andere* → *Fernsteuerung*: REST-Schnittstelle einschalten, Passwort setzen, speichern. Die
+   Karte zeigt die Adresse, z. B. `http://192.168.1.20:2323`.
+2. In ioBroker.fullybrowser das Gerät mit Protokoll `http`, dieser IP, Port `2323` und dem
+   Passwort eintragen.
+3. *Über anderen Apps einblenden* erlauben (Knopf auf derselben Karte). Ohne diese Berechtigung
+   lässt Android `screenOn` und `toForeground` die App nicht aus dem Hintergrund zurückholen.
+
+Die Schnittstelle läuft auch bei ausgeschaltetem Display weiter — als Vordergrunddienst mit
+dauerhafter Benachrichtigung — und startet nach einem Neustart des Geräts von selbst.
+
+**Selbst aufrufen** — beide Adressformen von Fully funktionieren, z. B. aus einem Skript oder
+Blockly:
+
+```
+http://192.168.1.20:2323/?cmd=textToSpeech&text=Es%20klingelt&password=…&type=json
+http://192.168.1.20:2323/screenOn?password=…
+```
+
+Jeder Befehl antwortet mit `{"status":"OK"|"Error","statustext":"…"}`; fehlt das Passwort oder
+ist es falsch, kommt `Please login`. Im Browser ohne Passwort geöffnet, zeigt die Adresse eine
+kleine Seite mit Passwortfeld und einigen Befehlen zum Ausprobieren.
+
+| Befehl | Parameter | Wirkung |
+|---|---|---|
+| `deviceInfo` | | Akku, Display-Zustand und -Helligkeit, aktuelle Seite, IP, Speicher, Lautstärke, Lichtsensor … als JSON |
+| `listSettings` | | `screenBrightness`, `motionDetection`, `startURL` |
+| `screenOn` / `screenOff` | | Display wecken / schwarzer Bildschirm (siehe unten) |
+| `startScreensaver` / `stopScreensaver` | | Dimmen / zurückstellen, wie nach Inaktivität |
+| `triggerMotion` | | Wie eine Berührung: Helligkeit zurück, Display wecken |
+| `setStringSetting` | `key=screenBrightness&value=0…255` | Display-Helligkeit; `-1` = die des Systems |
+| `setBooleanSetting` | `key=motionDetection&value=true` | Display bei Annäherung wecken (Näherungssensor) |
+| `loadURL` / `loadStartURL` / `refreshTab` | `url=` | Seite öffnen / Startseite / neu laden |
+| `playSound` / `stopSound` | `url=`, `loop=true`, `stream=3` | MP3- oder WAV-Datei von einer URL abspielen |
+| `setAudioVolume` | `level=0…100`, `stream=3` | Lautstärke eines Audio-Kanals |
+| `textToSpeech` / `stopTextToSpeech` | `text=`, `locale=de_DE`, `queue=1` | Text sprechen |
+| `setOverlayMessage` | `text=` | Meldung über der Seite; leerer Text entfernt sie |
+| `showToast` / `vibrate` | `text=` / `millis=` | Kurze Meldung / Vibration |
+| `toForeground` / `toBackground` / `restartApp` / `exitApp` | | App-Steuerung |
+| `startApplication` | `package=` | Eine andere App öffnen |
+| `getScreenshot` | | Bildschirmfoto als PNG |
+| `clearCache` / `clearCookies` / `clearWebstorage` | | Web-Daten löschen |
+
+Kiosk-Sperre, Kamerabilder und Videos werden nicht unterstützt und antworten mit
+`Not supported`.
+
+> **Display aus ohne Administratorrechte:** Eine App darf das Panel nicht selbst abschalten.
+> `screenOff` zeigt einen schwarzen Bildschirm mit minimaler Hintergrundbeleuchtung und
+> überlässt das Abschalten dem Bildschirm-Timeout des Systems; eine Berührung oder `screenOn`
+> holt die Seite zurück. Status- und Navigationsleiste bleiben sichtbar, solange sie auf
+> *anzeigen* stehen.
+
 ### Matter
 
 Die App meldet sich als Matter-Commissioner an. Der gescannte QR-Code eines Geräts wird an
@@ -129,8 +219,10 @@ Verwendung anlegt.
 Display wachhalten · nach N Sekunden Inaktivität auf einen gewählten Wert dimmen und beim
 nächsten Tippen zurückstellen · nach N Sekunden zur Startseite zurückkehren · Ausrichtung
 sperren · Statusleiste (mit frei wählbarer Farbe) und Navigationsleiste anzeigen, ausblenden
-oder transparent schalten · Vollbild erzwingen · fester oder automatischer Zoom, getrennt für
-Hoch- und Querformat · Scrollen und Zoomen erlauben oder sperren.
+oder transparent schalten · Vollbild erzwingen · fester Zoom mit zwei Nachkommastellen
+(z. B. `1.15`), getrennt für Hoch- und Querformat und sofort beim Drehen angewendet, oder
+automatischer Zoom · Scrollen und Zoomen erlauben oder sperren · Fernsteuerung durch ioBroker
+über die [REST-Schnittstelle](#fernsteuerung-rest-schnittstelle-kompatibel-mit-fully-kiosk).
 
 ### Projekte
 
@@ -157,7 +249,7 @@ in fünf Tabs gegliedert: **Lokal**, **Cloud**, **App**, **Andere** und **Matter
 | Host IP:PORT | Adresse der web-Instanz, z. B. `192.168.1.10:8082`. `https://` erlaubt |
 | Benutzername / Passwort | ioBroker-Benutzer für den automatischen Login |
 | QR-Scanner | Liest einen `iotConfig`-Code und füllt die Felder aus |
-| Selbstsignierte Zertifikate akzeptieren | Für lokale HTTPS-Instanzen mit eigenem Zertifikat |
+| Verwendete Adresse | Steht unter dem Feld: die vollständige Adresse, die die App öffnet |
 
 ### Cloud
 
@@ -173,17 +265,20 @@ in fünf Tabs gegliedert: **Lokal**, **Cloud**, **App**, **Andere** und **Matter
 
 | Einstellung | Bedeutung |
 |---|---|
-| Anwendung | `vis-2`, `vis`, `lovelace`, `material`, `jarvis`, `iQontrol`, `habpanel`, `devices` |
-| Projekt | Name des vis-Projekts, Standard `main` |
+| Anwendungen | Welche Visualisierungen das Projekt anbietet: `vis-2`, `devices`, `vis`, `lovelace`, `material`, `jarvis`, `iQontrol`, `habpanel`, `aura`. Mehrere werden zu [Tabs](#mehrere-visualisierungen-in-einem-projekt) |
+| Projekt | Name des vis-Projekts, Standard `main`. Die Projekte der Installation werden angeboten; gibt es nur eines, wird es gewählt |
 | URL-Postfix | Wird an die URL angehängt, z. B. `#meineStartView` |
 | Instanz-ID | Kennzeichnet dieses Gerät für `vis.0.control` (Views umschalten, aktive View erkennen) |
+
+Jede Anwendung hat eine eigene Karte mit diesen Feldern; die Pfeile in ihrer Überschrift
+verschieben sie in der Tab-Reihenfolge.
 
 ### Andere
 
 | Einstellung | Bedeutung |
 |---|---|
 | Zoom erlauben / Scrollen erlauben | Gesten in der WebView zulassen oder sperren |
-| Zoom (Hochformat) / Zoom (Querformat) | Fester Anfangszoom je Ausrichtung |
+| Zoom (Hochformat) / Zoom (Querformat) | Fester Anfangszoom je Ausrichtung, mit zwei Nachkommastellen |
 | Automatischer Zoom | Setzt `width=device-width`, die Seite skaliert sich selbst |
 | Vollbild erzwingen | Setzt `viewport-fit=cover` |
 | Neuladen bei Ausrichtungswechsel | Hilft bei Views, die sich nicht sauber neu anordnen |
@@ -203,6 +298,8 @@ in fünf Tabs gegliedert: **Lokal**, **Cloud**, **App**, **Andere** und **Matter
 | Pro-Logo anzeigen | Anzeige in der Ecke, solange die Cloud-Verbindung genutzt wird |
 | App-Start schützen / Einstellungen schützen | Biometrische Sperre |
 | Sprache / Dunkles Design | App-Sprache (EN/DE/RU) und Erscheinungsbild |
+| Selbstsignierte Zertifikate akzeptieren | Für lokale HTTPS-Instanzen mit eigenem Zertifikat |
+| REST-Schnittstelle | An/aus, Port, Passwort, Wecken bei Annäherung — siehe [Fernsteuerung](#fernsteuerung-rest-schnittstelle-kompatibel-mit-fully-kiosk) |
 
 ### Matter
 
@@ -217,7 +314,16 @@ Auswahl der Matter-Instanz und der Inbetriebnahme-Dialog.
 | Drei-Finger-Tipp | Einstellungen öffnen |
 | Zwei-Finger-Doppeltipp | Seite neu laden (abschaltbar) |
 | Tippen nach dem Dimmen | Vorherige Helligkeit wiederherstellen |
+| Tippen auf den schwarzen Bildschirm | Zurück aus `screenOff` der REST-Schnittstelle |
 | Langer Druck auf das App-Icon | Ein bestimmtes Projekt starten |
+
+Über der allerersten Visualisierung zeigt die App einmalig einen kurzen Hinweis auf den
+Drei-Finger-Tipp. Eine Visualisierung kann die Einstellungen auch selbst öffnen — der
+verlässliche Weg auf einem Wanddisplay, auf dem drei Finger umständlich sind:
+
+```js
+window.ReactNativeWebView.postMessage(JSON.stringify({ command: 'openSettings' }));
+```
 
 ---
 
@@ -232,7 +338,10 @@ Auswahl der Matter-Instanz und der Inbetriebnahme-Dialog.
 | Widget-Kachel bleibt leer | Siehe [widgets.de.md](widgets.de.md) — meist der `/state/`-Endpunkt des web-Adapters |
 | Keine Push-Benachrichtigungen | ioBroker.pro-Zugangsdaten fehlen oder sind ungültig; Push hängt an einem gültigen Pro-Konto |
 | Hintergrundwerte bleiben nachts aus | Doze-Modus — App von der Akkuoptimierung ausnehmen oder dauerhaftes Melden im Hintergrund aktivieren |
-| Selbstsigniertes Zertifikat wird abgelehnt | *Selbstsignierte Zertifikate akzeptieren* im Tab *Lokal* aktivieren |
+| „SSL-Fehler“ statt der Seite | Das Zertifikat ist selbstsigniert oder für einen anderen Namen ausgestellt — *Selbstsignierte Zertifikate akzeptieren* im Tab *Andere* aktivieren |
+| Heimnetz wird nicht erkannt | Zum Lesen des WLAN-Namens braucht es Standortberechtigung und eingeschalteten Standort — der Tab *Remote* sagt, was fehlt |
+| Mikrofon oder Kamera gehen in der Seite nicht | Nur über HTTPS verfügbar — siehe [Mikrofon, Kamera und Ton](#mikrofon-kamera-und-ton) |
+| `screenOn` / `toForeground` antworten mit einem Fehler | Für die App *Über anderen Apps einblenden* erlauben (Knopf auf der Karte *Fernsteuerung*) |
 
 ---
 

@@ -28,8 +28,8 @@ platform means the same thing on the other.
 ### What the apps do
 
 The apps are a tuned, full-screen container for the visualization that already runs on your
-ioBroker installation — `vis-2`, `vis`, `lovelace`, `material`, `jarvis`, `iQontrol`,
-`habpanel` or `devices`. Instead of opening that page in a mobile browser you get:
+ioBroker installation — `vis-2`, `devices`, `vis`, `lovelace`, `material`, `jarvis`,
+`iQontrol`, `habpanel` or `aura`. Instead of opening that page in a mobile browser you get:
 
 - a saved connection configuration, local **and** remote, with automatic switching between
   the home network and the **ioBroker.pro** cloud based on the current Wi-Fi SSID;
@@ -39,6 +39,12 @@ ioBroker installation — `vis-2`, `vis`, `lovelace`, `material`, `jarvis`, `iQo
   per-device targeting;
 - device telemetry back into ioBroker: battery, screen brightness, location, Wi-Fi SSID,
   connection type and an online indicator per device;
+- pages may use the **microphone and camera** — for an intercom or a doorbell — and play a ring
+  tone without a tap first;
+- **remote control** of a wall tablet from ioBroker through a REST interface compatible with
+  Fully Kiosk Browser: screen on and off, sounds, text to speech, brightness *(on iOS only while
+  the app is on screen)*;
+- **several visualizations** in one project, shown as tabs *(Android)*;
 - **Matter** commissioning through the ioBroker matter adapter;
 - **geofence** presence detection;
 - wall-panel behaviour: keep the display awake, dim after inactivity, lock the orientation,

@@ -28,8 +28,8 @@ Plattform beschriebene Option bedeutet auf der anderen dasselbe.
 ### Was die Apps machen
 
 Die Apps sind ein auf den Zweck zugeschnittener Vollbild-Container für die Visualisierung,
-die ohnehin schon auf deiner ioBroker-Installation läuft — `vis-2`, `vis`, `lovelace`,
-`material`, `jarvis`, `iQontrol`, `habpanel` oder `devices`. Statt diese Seite im mobilen
+die ohnehin schon auf deiner ioBroker-Installation läuft — `vis-2`, `devices`, `vis`,
+`lovelace`, `material`, `jarvis`, `iQontrol`, `habpanel` oder `aura`. Statt diese Seite im mobilen
 Browser zu öffnen, bekommst du:
 
 - eine gespeicherte Verbindungskonfiguration, lokal **und** von außen, mit automatischem
@@ -41,6 +41,12 @@ Browser zu öffnen, bekommst du:
   und gezielter Zustellung an einzelne Geräte;
 - Gerätedaten zurück nach ioBroker: Akku, Bildschirmhelligkeit, Standort, WLAN-SSID,
   Verbindungsart und eine Online-Anzeige je Gerät;
+- Seiten dürfen **Mikrofon und Kamera** nutzen — für eine Gegensprechanlage oder Türklingel —
+  und einen Klingelton ohne vorheriges Tippen abspielen;
+- **Fernsteuerung** eines Wandtablets aus ioBroker über eine REST-Schnittstelle, kompatibel mit
+  Fully Kiosk Browser: Display an und aus, Töne, Sprachausgabe, Helligkeit *(unter iOS nur,
+  solange die App sichtbar ist)*;
+- **mehrere Visualisierungen** in einem Projekt, als Tabs *(Android)*;
 - **Matter**-Inbetriebnahme über den ioBroker-Matter-Adapter;
 - **Geofence**-Anwesenheitserkennung;
 - Wandpanel-Verhalten: Display wachhalten, nach Inaktivität dimmen, Ausrichtung sperren,

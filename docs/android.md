@@ -53,28 +53,46 @@ Matter commissioning and kiosk behaviour.
 
 ### Supported visualizations
 
-`vis-2` · `vis` · `lovelace` · `material` · `jarvis` · `iQontrol` · `habpanel` · `devices`
+`vis-2` · `devices` · `vis` · `lovelace` · `material` · `jarvis` · `iQontrol` · `habpanel` · `aura`
 
 The chosen type only decides which URL the app opens, so anything else reachable on your web
 instance can be used as well. The default port is **8082**, except for `lovelace`, which
 defaults to **8091**.
 
+### Several visualizations in one project
+
+A project can offer more than one visualization — `vis-2` for the rooms and `lovelace` for the
+energy view, say. With more than one, a strip of tabs appears above the page. Every tab keeps
+its own page: switching back finds the view, the scroll position and the connection where they
+were, and a tab is only loaded the first time it is opened. *Back* steps through the page
+history, then to the first tab, and only then leaves the app; the inactivity timeout returns to
+the first tab and its start page.
+
 ### Connection
 
 - **Local** — IP and port of your web instance, e.g. `192.168.1.10:8082`. A bare `IP:PORT`
   is completed automatically; `https://` may be given explicitly. An optional user name and
-  password perform an automatic login.
+  password perform an automatic login. The address the app will really open — scheme, port
+  and path included — is shown under the field.
 - **Pro Cloud** — your [ioBroker.pro](https://iobroker.pro) account for access from outside.
   The subscription is validated against the cloud, and a Pro logo can be shown in the corner
   while the cloud connection is in use.
-- **Custom cloud** — instead of ioBroker.pro, any self-hosted URL.
+- **Custom cloud** — instead of ioBroker.pro, any self-hosted URL. The corner badge then reads
+  `remote` instead of `.pro`.
 - **Wi-Fi SSIDs** — a comma-separated list of your home networks. While connected to one of
-  them the app uses the local URL, otherwise the cloud.
+  them the app uses the local URL, otherwise the cloud. Android tells an app the Wi-Fi name
+  only with the location permission *and* with location switched on; the *Remote* tab says
+  which of the two is missing. While the name cannot be read, the app asks the local
+  installation whether it answers rather than going to the cloud.
 - **VPN detection** — when a VPN is active the app can offer (or silently choose) the local
   URL, because through the tunnel the local address is reachable again.
 - **QR code setup** — the Local tab has a scanner for the `iotConfig` code produced by
   ioBroker, which fills in port, IP, cloud user and password in one step.
-- **Self-signed certificates** — can be accepted per project for local HTTPS instances.
+- **Self-signed certificates** — can be accepted per project (tab *Others*) for local HTTPS
+  instances. The exception covers the page, the login, the connection check and the list of
+  vis projects alike; it is never applied to iobroker.pro. A refused certificate is named —
+  untrusted, issued for another name, expired or not yet valid — instead of leaving a blank
+  page or reporting "no connection".
 - **Session recovery** — an expired session produces no error, only a redirect to a login
   page. The app renews the session cookie before it expires, renews again when it returns
   to the foreground, and recognises a login page by its URL to log in silently and return to
@@ -109,6 +127,73 @@ that also fires in doze mode, and — optionally, for devices whose manufacturer
 background work entirely — a foreground service. The Others tab offers a shortcut to the
 battery-optimisation settings when the system is still restricting the app.
 
+### Microphone, camera and sound
+
+A page may use the microphone and the camera — an intercom or a doorbell widget, for example.
+The app asks for the Android permission the first time a page wants it, not at start-up. Sounds
+may play without a tap first, so a ring tone is heard on a display nobody has touched.
+
+> Android's WebView offers the microphone and the camera only to pages loaded over **HTTPS**
+> (ioBroker.pro, or a local instance with a certificate). Over plain `http://<ip>` a page cannot
+> use them; playing sounds works either way.
+
+### Remote control (REST interface, compatible with Fully Kiosk)
+
+The app can answer the REST interface of **Fully Kiosk Browser**, so ioBroker can control a wall
+tablet: switch the screen on and off, play a ring tone, speak a text, set brightness and volume,
+open a page. The [ioBroker.fullybrowser](https://github.com/arteck/ioBroker.fullybrowser) adapter
+works with it unchanged.
+
+**Setup**
+
+1. *Others* → *Remote control*: switch on the REST interface, set a password and save. The card
+   shows the address, e.g. `http://192.168.1.20:2323`.
+2. In ioBroker.fullybrowser add the device with protocol `http`, this IP, port `2323` and the
+   password.
+3. Allow *Display over other apps* (button on the same card). Without it Android does not let
+   `screenOn` and `toForeground` bring the app back from the background.
+
+The interface keeps running while the screen is off — a foreground service with a permanent
+notification — and starts again after a reboot.
+
+**Calling it yourself** — both address forms of Fully work, e.g. from a script or Blockly:
+
+```
+http://192.168.1.20:2323/?cmd=textToSpeech&text=Es%20klingelt&password=…&type=json
+http://192.168.1.20:2323/screenOn?password=…
+```
+
+Every command answers `{"status":"OK"|"Error","statustext":"…"}`; a missing or wrong password
+gets `Please login`. Opened in a browser without a password, the address shows a small page
+with a password field and a few commands to try.
+
+| Command | Parameters | Effect |
+|---|---|---|
+| `deviceInfo` | | Battery, screen state and brightness, current page, IP, memory, volume, light sensor … as JSON |
+| `listSettings` | | `screenBrightness`, `motionDetection`, `startURL` |
+| `screenOn` / `screenOff` | | Wake the display / black screen (see below) |
+| `startScreensaver` / `stopScreensaver` | | Dim / restore, as after inactivity |
+| `triggerMotion` | | Like a touch: restore the brightness, wake the display |
+| `setStringSetting` | `key=screenBrightness&value=0…255` | Display brightness; `-1` = the system's |
+| `setBooleanSetting` | `key=motionDetection&value=true` | Wake the display on approach (proximity sensor) |
+| `loadURL` / `loadStartURL` / `refreshTab` | `url=` | Open a page / the start page / reload |
+| `playSound` / `stopSound` | `url=`, `loop=true`, `stream=3` | Play an MP3 or WAV file from a URL |
+| `setAudioVolume` | `level=0…100`, `stream=3` | Volume of an audio stream |
+| `textToSpeech` / `stopTextToSpeech` | `text=`, `locale=de_DE`, `queue=1` | Speak a text |
+| `setOverlayMessage` | `text=` | Message over the page; an empty text removes it |
+| `showToast` / `vibrate` | `text=` / `millis=` | Short message / vibration |
+| `toForeground` / `toBackground` / `restartApp` / `exitApp` | | App control |
+| `startApplication` | `package=` | Open another app |
+| `getScreenshot` | | Screenshot as PNG |
+| `clearCache` / `clearCookies` / `clearWebstorage` | | Clear web data |
+
+Kiosk lock, camera pictures and videos are not supported and answer `Not supported`.
+
+> **Screen off without admin rights:** an app may not switch the panel off by itself.
+> `screenOff` shows a black screen with the backlight at its minimum and lets the system's own
+> screen timeout switch the panel off; a touch or `screenOn` brings the page back. The status
+> and navigation bar stay visible while they are set to *shown*.
+
 ### Matter
 
 The app registers as a Matter commissioner. Scanning a device's QR code hands the
@@ -125,8 +210,10 @@ under `iot.0.app.geofence.<name>`, which the adapter creates on first use.
 Keep the display awake · dim to a chosen level after N seconds of inactivity and restore on
 the next tap · return to the start page after N seconds · lock the orientation · show, hide
 or make transparent the status bar (with a free colour) and the navigation bar · force full
-screen · fixed or automatic zoom, separately for portrait and landscape · allow or block
-scrolling and zooming.
+screen · fixed zoom with two decimals (e.g. `1.15`), separately for portrait and landscape and
+applied as soon as the device is turned, or automatic zoom · allow or block scrolling and
+zooming · remote control by ioBroker through the
+[REST interface](#remote-control-rest-interface-compatible-with-fully-kiosk).
 
 ### Projects
 
@@ -153,7 +240,7 @@ in five tabs: **Local**, **Cloud**, **App**, **Others** and **Matter**.
 | Host IP:PORT | Address of the web instance, e.g. `192.168.1.10:8082`. `https://` allowed |
 | User name / Password | ioBroker user for the automatic login |
 | QR scanner | Reads an `iotConfig` code and fills in the fields |
-| Accept self-signed certificates | For local HTTPS instances with their own certificate |
+| Address used | Shown under the field: the complete address the app will open |
 
 ### Cloud
 
@@ -169,17 +256,20 @@ in five tabs: **Local**, **Cloud**, **App**, **Others** and **Matter**.
 
 | Setting | Meaning |
 |---|---|
-| Application | `vis-2`, `vis`, `lovelace`, `material`, `jarvis`, `iQontrol`, `habpanel`, `devices` |
-| Project | vis project name, default `main` |
+| Applications | Which visualizations the project offers: `vis-2`, `devices`, `vis`, `lovelace`, `material`, `jarvis`, `iQontrol`, `habpanel`, `aura`. Several become [tabs](#several-visualizations-in-one-project) |
+| Project | vis project name, default `main`. The projects found on the installation are offered; if there is only one, it is chosen |
 | URL postfix | Appended to the URL, e.g. `#myStartView` |
 | Instance ID | Identifies this device for `vis.0.control` (switch views, detect the active view) |
+
+Each application has a card of its own with these fields; the arrows in its heading move it
+through the tab order.
 
 ### Others
 
 | Setting | Meaning |
 |---|---|
 | Allow zoom / Allow scrolling | Enable or block the gestures in the WebView |
-| Zoom (portrait) / Zoom (landscape) | Fixed initial scale per orientation |
+| Zoom (portrait) / Zoom (landscape) | Fixed initial scale per orientation, typed with two decimals |
 | Automatic zoom | Sets `width=device-width`, so the page scales itself |
 | Force full screen | Sets `viewport-fit=cover` |
 | Reload on orientation change | Helps with views that do not re-layout cleanly |
@@ -199,6 +289,8 @@ in five tabs: **Local**, **Cloud**, **App**, **Others** and **Matter**.
 | Show Pro logo | Indicator in the corner while the cloud connection is in use |
 | Protect app start / Protect settings | Biometric lock |
 | Language / Dark mode | App language (EN/DE/RU) and theme |
+| Accept self-signed certificates | For local HTTPS instances with their own certificate |
+| REST interface | On/off, port, password, wake on approach — see [Remote control](#remote-control-rest-interface-compatible-with-fully-kiosk) |
 
 ### Matter
 
@@ -213,7 +305,16 @@ Selection of the matter instance and the commissioning dialog.
 | Three-finger tap | Open the settings |
 | Two-finger double tap | Reload the page (can be switched off) |
 | Tap after dimming | Restore the previous brightness |
+| Tap on the black screen | Back from `screenOff` of the REST interface |
 | Long press on the app icon | Start a specific project |
+
+The first visualization the app ever shows carries a short hint about the three-finger tap,
+once. A visualization can also open the settings itself, which is the dependable way on a wall
+display where three fingers are awkward:
+
+```js
+window.ReactNativeWebView.postMessage(JSON.stringify({ command: 'openSettings' }));
+```
 
 ---
 
@@ -228,7 +329,10 @@ Selection of the matter instance and the commissioning dialog.
 | Widget tile stays empty | See [widgets.md](widgets.md) — usually the `/state/` endpoint of the web adapter |
 | No push notifications | ioBroker.pro credentials missing or invalid; push is tied to a valid Pro account |
 | Background values stop at night | Doze mode — exclude the app from battery optimisation, or enable permanent background reporting |
-| Self-signed certificate rejected | Enable *Accept self-signed certificates* in the Local tab |
+| "SSL error" instead of the page | The certificate is self-signed or issued for another name — enable *Accept self-signed certificates* in the *Others* tab |
+| Home network not recognised | Reading the Wi-Fi name needs the location permission and location switched on — the *Remote* tab says which is missing |
+| Microphone or camera do not work in the page | Only available over HTTPS — see [Microphone, camera and sound](#microphone-camera-and-sound) |
+| `screenOn` / `toForeground` answer with an error | Allow *Display over other apps* for the app (button on the *Remote control* card) |
 
 ---
 
