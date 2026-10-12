@@ -24,23 +24,39 @@
 
 ## Screenshots
 
-| Deine Visualisierung | Verbindungseinstellungen | Darstellung |
+### Deine Visualisierung
+
+| Smartphone | Tablet (quer) | Navigationsmenü (Tablet) |
 |---|---|---|
-| <img src="images/android/vis-dashboard-phone.png" width="230" alt="vis-Dashboard auf einem Android-Smartphone" /> | <img src="images/android/settings-connection-phone.png" width="230" alt="Verbindungseinstellungen" /> | <img src="images/android/settings-appearance-phone.png" width="230" alt="Darstellungseinstellungen" /> |
+| <img src="images/android/vis-dashboard-phone.png" width="230" alt="vis-Dashboard auf einem Android-Smartphone" /> | <img src="images/android/vis-dashboard-tablet-landscape.png" width="420" alt="Dashboard auf einem Tablet im Querformat" /> | <img src="images/android/vis-menu-tablet-landscape.png" width="420" alt="Navigationsmenü auf einem Tablet" /> |
 
-Auf Tablets nutzen dieselben Ansichten die volle Breite:
-
-| Dashboard (quer) | Navigationsmenü |
+| Dashboard (Tablet, hoch) | Navigationsmenü (Tablet, hoch) |
 |---|---|
-| <img src="images/android/vis-dashboard-tablet-landscape.png" width="420" alt="Dashboard auf einem Tablet im Querformat" /> | <img src="images/android/vis-menu-tablet-landscape.png" width="420" alt="Navigationsmenü auf einem Tablet" /> |
+| <img src="images/android/vis-dashboard-tablet-portrait.png" width="260" alt="Dashboard auf einem Tablet im Hochformat" /> | <img src="images/android/vis-menu-tablet-portrait.png" width="260" alt="Navigationsmenü auf einem Tablet im Hochformat" /> |
 
-| Dashboard (hoch) | Navigationsmenü (hoch) | Vollständige Einstellungsliste |
+*Diese fünf sind die Google-Play-Screenshots und zeigen eine vis-Seite, nicht die App selbst.*
+
+### Einstellungen
+
+Fünf Tabs, hier auf einem Smartphone im dunklen Thema:
+
+| Lokal | Remote | WLAN-Erkennung |
 |---|---|---|
-| <img src="images/android/vis-dashboard-tablet-portrait.png" width="260" alt="Dashboard auf einem Tablet im Hochformat" /> | <img src="images/android/vis-menu-tablet-portrait.png" width="260" alt="Navigationsmenü auf einem Tablet im Hochformat" /> | <img src="images/android/settings-full-tablet.png" width="320" alt="Vollständige Einstellungsliste" /> |
+| <img src="images/android/phone-01-local.png" width="230" alt="Tab Lokal: QR-Import, Host, Benutzername, Passwort und der geprüfte Verbindungsstatus" /> | <img src="images/android/phone-02-remote.png" width="230" alt="Tab Remote: Cloud-Typ, E-Mail, Passwort und Verbindung prüfen" /> | <img src="images/android/phone-03-wifi.png" width="230" alt="Tab Remote: WLAN-SSIDs, bei denen die lokale Verbindung genutzt wird" /> |
 
-*Das sind die aktuellen Google-Play-Screenshots. Die App wird laufend weiterentwickelt, der
-Einstellungsbildschirm der neuesten Version kann daher anders gegliedert sein als hier zu
-sehen — die Referenz unten beschreibt die aktuelle Struktur.*
+| App | Andere: Allgemein und Anzeige | Andere: Verhalten |
+|---|---|---|
+| <img src="images/android/phone-04-app.png" width="230" alt="Tab App: Applikationen, vis-Projektname, Startseite, Instanz-ID und die daraus gebaute Adresse" /> | <img src="images/android/phone-05-others.png" width="230" alt="Tab Andere: Thema, Sprache, Gerätename sowie Leisten und Ausrichtung" /> | <img src="images/android/phone-06-behaviour.png" width="230" alt="Tab Andere: Zoom, Scrollen, Neuladen und Display nicht abschalten" /> |
+
+| Andere: Telemetrie | Andere: Netzwerk | Matter |
+|---|---|---|
+| <img src="images/android/phone-07-telemetry.png" width="230" alt="Tab Andere: wohin die Telemetrie geht, Akkustatus, Standort und Helligkeit" /> | <img src="images/android/phone-08-network.png" width="230" alt="Tab Andere: VPN-Erkennung, selbstsignierte Zertifikate und Anfangszoom" /> | <img src="images/android/phone-09-matter.png" width="230" alt="Tab Matter: Gerät neu hinzufügen oder ein bereits gekoppeltes verbinden" /> |
+
+Auf Tablets nutzen dieselben Seiten die volle Breite:
+
+| Lokal (Tablet) | Andere (Tablet) |
+|---|---|
+| <img src="images/android/tablet-01-local.png" width="300" alt="Tab Lokal auf einem Tablet" /> | <img src="images/android/tablet-02-others.png" width="300" alt="Tab Andere auf einem Tablet mit den Karten Allgemein, Anzeige und Verhalten" /> |
 
 ---
 
@@ -240,7 +256,7 @@ für das Öffnen der Einstellungen verlangen.
 ## Einstellungsreferenz
 
 Die Einstellungen öffnen sich mit einem **Drei-Finger-Tipp** auf die Visualisierung und sind
-in fünf Tabs gegliedert: **Lokal**, **Cloud**, **App**, **Andere** und **Matter**.
+in fünf Tabs gegliedert: **Lokal**, **Remote**, **App**, **Andere** und **Matter**.
 
 ### Lokal
 
@@ -251,7 +267,7 @@ in fünf Tabs gegliedert: **Lokal**, **Cloud**, **App**, **Andere** und **Matter
 | QR-Scanner | Liest einen `iotConfig`-Code und füllt die Felder aus |
 | Verwendete Adresse | Steht unter dem Feld: die vollständige Adresse, die die App öffnet |
 
-### Cloud
+### Remote
 
 | Einstellung | Bedeutung |
 |---|---|

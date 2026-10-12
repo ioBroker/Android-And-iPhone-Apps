@@ -24,23 +24,39 @@
 
 ## Screenshots
 
-| Your visualization | Connection settings | Appearance settings |
+### Your visualization
+
+| Phone | Tablet (landscape) | Navigation drawer (tablet) |
 |---|---|---|
-| <img src="images/android/vis-dashboard-phone.png" width="230" alt="vis dashboard on an Android phone" /> | <img src="images/android/settings-connection-phone.png" width="230" alt="Connection settings" /> | <img src="images/android/settings-appearance-phone.png" width="230" alt="Appearance settings" /> |
+| <img src="images/android/vis-dashboard-phone.png" width="230" alt="vis dashboard on an Android phone" /> | <img src="images/android/vis-dashboard-tablet-landscape.png" width="420" alt="Dashboard on a tablet in landscape" /> | <img src="images/android/vis-menu-tablet-landscape.png" width="420" alt="Navigation drawer on a tablet" /> |
 
-On tablets the same views use the full width:
-
-| Dashboard (landscape) | Navigation drawer |
+| Dashboard (tablet, portrait) | Navigation drawer (tablet, portrait) |
 |---|---|
-| <img src="images/android/vis-dashboard-tablet-landscape.png" width="420" alt="Dashboard on a tablet in landscape" /> | <img src="images/android/vis-menu-tablet-landscape.png" width="420" alt="Navigation drawer on a tablet" /> |
+| <img src="images/android/vis-dashboard-tablet-portrait.png" width="260" alt="Dashboard on a tablet in portrait" /> | <img src="images/android/vis-menu-tablet-portrait.png" width="260" alt="Navigation drawer on a tablet in portrait" /> |
 
-| Dashboard (portrait) | Navigation drawer (portrait) | Full settings list |
+*These five are the Google Play screenshots and show a vis page, not the app itself.*
+
+### Settings
+
+Five tabs, shown here on a phone in the dark theme:
+
+| Local | Remote | Wi-Fi detection |
 |---|---|---|
-| <img src="images/android/vis-dashboard-tablet-portrait.png" width="260" alt="Dashboard on a tablet in portrait" /> | <img src="images/android/vis-menu-tablet-portrait.png" width="260" alt="Navigation drawer on a tablet in portrait" /> | <img src="images/android/settings-full-tablet.png" width="320" alt="Complete settings list" /> |
+| <img src="images/android/phone-01-local.png" width="230" alt="Local tab: QR import, host, user name, password and the checked connection status" /> | <img src="images/android/phone-02-remote.png" width="230" alt="Remote tab: cloud type, e-mail, password and check connection" /> | <img src="images/android/phone-03-wifi.png" width="230" alt="Remote tab: the Wi-Fi SSIDs on which the local connection is used" /> |
 
-*These are the current Google Play screenshots. The app is developed continuously, so the
-settings screen in the latest release may be grouped differently than shown here — the
-reference below describes the current structure.*
+| App | Others: general and display | Others: behaviour |
+|---|---|---|
+| <img src="images/android/phone-04-app.png" width="230" alt="App tab: applications, vis project name, start page, instance id and the address built from them" /> | <img src="images/android/phone-05-others.png" width="230" alt="Others tab: theme, language, device name, bars and orientation" /> | <img src="images/android/phone-06-behaviour.png" width="230" alt="Others tab: zoom, scrolling, reloading and keep the display awake" /> |
+
+| Others: telemetry | Others: network | Matter |
+|---|---|---|
+| <img src="images/android/phone-07-telemetry.png" width="230" alt="Others tab: where the telemetry goes, battery, location and brightness" /> | <img src="images/android/phone-08-network.png" width="230" alt="Others tab: VPN detection, self-signed certificates and initial zoom" /> | <img src="images/android/phone-09-matter.png" width="230" alt="Matter tab: add a new device or connect one that is already commissioned" /> |
+
+On tablets the same pages use the full width:
+
+| Local (tablet) | Others (tablet) |
+|---|---|
+| <img src="images/android/tablet-01-local.png" width="300" alt="Local tab on a tablet" /> | <img src="images/android/tablet-02-others.png" width="300" alt="Others tab on a tablet showing the General, Display and Behaviour cards" /> |
 
 ---
 
@@ -231,7 +247,7 @@ independently of each other.
 ## Settings reference
 
 The settings screen opens with a **three-finger tap** on the visualization, and is organised
-in five tabs: **Local**, **Cloud**, **App**, **Others** and **Matter**.
+in five tabs: **Local**, **Remote**, **App**, **Others** and **Matter**.
 
 ### Local
 
@@ -242,7 +258,7 @@ in five tabs: **Local**, **Cloud**, **App**, **Others** and **Matter**.
 | QR scanner | Reads an `iotConfig` code and fills in the fields |
 | Address used | Shown under the field: the complete address the app will open |
 
-### Cloud
+### Remote
 
 | Setting | Meaning |
 |---|---|
